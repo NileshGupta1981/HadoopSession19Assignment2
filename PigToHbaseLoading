@@ -1,0 +1,11 @@
+export PIG_CLASSPATH=/home/hadoop/HADOOP/hbase-0.98.4-hadoop2/lib/hbase-server-0.98.4-hadoop2:/home/hadoop/HADOOP/hbase-0.98.4-hadoop2/lib/hbase-*.jar
+
+create 'employee_details','personal'
+
+employee = load '/user/acadgild/employee.txt' USING PigStorage(',') AS (empid:int,empname:chararray,age:int);
+
+
+STORE employee INTO 'hbase://employee_details' USING org.apache.pig.backend.hadoop.hbase.HBaseStorage('personal:empname,personal:age');
+
+
+
